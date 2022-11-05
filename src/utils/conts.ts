@@ -25,3 +25,8 @@ export const adManagementOptions = [
   { id: 2, content: '진행중' },
   { id: 3, content: '중단됨' },
 ];
+
+export const adTypes: { [key: string]: string } = {
+  web: '웹광고',
+  app: '앱광고',
+};
