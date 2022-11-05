@@ -37,7 +37,7 @@ function AdCard({
 
       <Contents>
         {contents.map(({ data, content }) => (
-          <Content>
+          <Content key={data}>
             <div>{data}</div>
             {content}
           </Content>
