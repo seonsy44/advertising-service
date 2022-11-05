@@ -52,7 +52,7 @@ function AdCard({
 export default AdCard;
 
 const Container = styled.div`
-  width: 305px;
+  width: 100%;
   padding: 40px 20px 20px 20px;
   border: 1px solid ${({ theme }) => theme.grey_100};
   border-radius: 10px;
