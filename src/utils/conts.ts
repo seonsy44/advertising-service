@@ -5,6 +5,11 @@ export const pathnames: { [key: string]: string } = {
   management: '/management',
 };
 
+export const pageTitles: { [key: string]: string } = {
+  [pathnames.dashboard]: '대시보드',
+  [pathnames.management]: '광고관리',
+};
+
 export const sidebarMenu = [
   { Icon: PT, content: '대시보드', path: pathnames.dashboard },
   { Icon: Chart, content: '광고관리', path: pathnames.management },
