@@ -24,6 +24,7 @@ const Container = styled.div`
   width: 320px;
   height: 100%;
   padding: 0 40px;
+  background-color: ${({ theme }) => theme.bg_w};
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.04);
 `;
 
