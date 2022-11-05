@@ -5,11 +5,12 @@ type OptionSmallProps = {
   children: React.ReactNode;
   isSelected?: boolean;
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
+  onClick?: () => void;
 };
 
-function OptionSmall({ children, isSelected, customStyle }: OptionSmallProps) {
+function OptionSmall({ children, isSelected, customStyle, onClick }: OptionSmallProps) {
   return (
-    <OptionRaw isSelected={isSelected} customStyle={OptionSmallStyle(customStyle)}>
+    <OptionRaw isSelected={isSelected} customStyle={OptionSmallStyle(customStyle)} onClick={onClick}>
       {children}
     </OptionRaw>
   );

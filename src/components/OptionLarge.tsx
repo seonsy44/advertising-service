@@ -5,11 +5,12 @@ type OptionLargeProps = {
   children: React.ReactNode;
   isSelected?: boolean;
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
+  onClick?: () => void;
 };
 
-function OptionLarge({ children, isSelected, customStyle }: OptionLargeProps) {
+function OptionLarge({ children, isSelected, customStyle, onClick }: OptionLargeProps) {
   return (
-    <OptionRaw isSelected={isSelected} customStyle={OptionLargeStyle(customStyle)}>
+    <OptionRaw isSelected={isSelected} customStyle={OptionLargeStyle(customStyle)} onClick={onClick}>
       {children}
     </OptionRaw>
   );
