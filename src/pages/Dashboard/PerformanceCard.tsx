@@ -25,7 +25,7 @@ export default PerformanceCard;
 
 const Container = styled.div`
   position: relative;
-  width: 304px;
+  width: 100%;
   height: 80px;
   padding: 18px 40px;
   ${flexBox('column', 'space-between', 'flex-start')}
