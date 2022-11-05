@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { HiOutlineBell, HiOutlineCog, HiOutlineUser } from 'react-icons/hi';
-import { flexBox } from '../styles/mixin';
+import { flexBox } from '../../styles/mixin';
 
 function TopBar() {
   return (

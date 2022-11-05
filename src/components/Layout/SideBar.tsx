@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { flexBox } from '../styles/mixin';
-import { sidebarOptions } from '../utils/conts';
-import DropdownLarge from './DropdownLarge';
+import { flexBox } from '../../styles/mixin';
+import { sidebarOptions } from '../../utils/conts';
+import DropdownLarge from '../DropdownLarge';
 import SideBarMenu from './SideBarMenu';
 
 function SideBar() {

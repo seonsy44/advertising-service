@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
-import OptionLarge from './OptionLarge';
-import { flexBox } from '../styles/mixin';
-import { sidebarMenu } from '../utils/conts';
+import OptionLarge from '../OptionLarge';
+import { flexBox } from '../../styles/mixin';
+import { sidebarMenu } from '../../utils/conts';
 
 function SideBarMenu() {
   const { pathname } = useLocation();

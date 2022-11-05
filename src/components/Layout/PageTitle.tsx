@@ -2,9 +2,9 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FaChevronDown } from 'react-icons/fa';
-import { flexBox } from '../styles/mixin';
-import { pageTitles, pathnames } from '../utils/conts';
-import DatePicker from './DatePicker';
+import { flexBox } from '../../styles/mixin';
+import { pageTitles, pathnames } from '../../utils/conts';
+import DatePicker from '../DatePicker';
 
 function PageTitle() {
   const { pathname } = useLocation();

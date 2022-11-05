@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexBox, positionCenterX } from '../styles/mixin';
+import { flexBox, positionCenterX } from '../../styles/mixin';
 import PageTitle from './PageTitle';
 import SideBar from './SideBar';
 import TopBar from './TopBar';
