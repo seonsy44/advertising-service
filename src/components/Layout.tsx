@@ -32,7 +32,8 @@ const Container = styled.div`
 
 const Main = styled.div`
   width: 100%;
-  min-height: 100vh;
-  padding: 0 40px;
+  height: 100vh;
+  padding: 0 40px 80px 40px;
   background-color: ${({ theme }) => theme.bg_g};
+  overflow-y: scroll;
 `;
