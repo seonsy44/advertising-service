@@ -26,10 +26,11 @@ const Container = styled.div<{ customStyle: FlattenInterpolation<ThemeProps<unkn
   height: 340px;
   border-radius: 10px;
   box-shadow: 0 0 8px ${({ theme }) => theme.grey_100};
-  background-color: ${({ theme }) => theme.bg_g};
+  background-color: ${({ theme }) => theme.bg_w};
   ${flexBox()}
   font-size: 15px;
   font-weight: 500;
+  z-index: 10;
   ${({ customStyle }) => customStyle};
 `;
 
