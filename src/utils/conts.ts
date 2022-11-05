@@ -2,7 +2,7 @@ import { HiOutlinePresentationChartLine as PT, HiChartBar as Chart } from 'react
 
 export const pathnames: { [key: string]: string } = {
   dashboard: '/dashboard',
-  management: '/management',
+  management: '/admanagement',
 };
 
 export const pageTitles: { [key: string]: string } = {
@@ -18,4 +18,10 @@ export const sidebarMenu = [
 export const sidebarOptions = [
   { id: 1, content: '매드업' },
   { id: 2, content: '서비스 추가하기' },
+];
+
+export const adManagementOptions = [
+  { id: 1, content: '전체 광고' },
+  { id: 2, content: '진행중' },
+  { id: 3, content: '중단됨' },
 ];

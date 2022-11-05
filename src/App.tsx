@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
+import AdManagement from './pages/AdManagement';
 import { pathnames } from './utils/conts';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path={pathnames.dashboard} element={<Dashboard />} />
-          <Route path={pathnames.management} element={<div>management</div>} />
+          <Route path={pathnames.management} element={<AdManagement />} />
         </Routes>
       </Layout>
     </Router>
