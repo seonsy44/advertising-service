@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Container from '../../components/Container';
 import PerformanceSummary from './PerformaceSummary';
 
 function Dashboard() {
@@ -13,15 +14,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-const Container = styled.div`
-  width: 100%;
-  height: 654px;
-  padding: 40px;
-  margin-top: 20px;
-  border-radius: 20px;
-  background-color: ${({ theme }) => theme.bg_w};
-`;
 
 const SubTitle = styled.div`
   margin-top: 20px;
