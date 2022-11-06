@@ -8,18 +8,18 @@ type AdsProviderProps = {
 };
 
 type State = {
-  Ads: Advertisement[];
+  ads: Advertisement[];
   editAd: (edited: Advertisement) => void;
 };
 
 const AdsContext = createContext<State | null>(null);
-export const useTrend = () => useContext(AdsContext);
+export const useAds = () => useContext(AdsContext);
 
 export function AdsProvider({ children, adsService }: AdsProviderProps) {
-  const [Ads, setAds] = useState<Advertisement[]>([]);
+  const [ads, setAds] = useState<Advertisement[]>([]);
 
   const editAd = (edited: Advertisement) => {
-    const editedAds = Ads.map((ad) => (ad.id === edited.id ? edited : ad));
+    const editedAds = ads.map((ad) => (ad.id === edited.id ? edited : ad));
     setAds(editedAds);
   };
 
@@ -32,7 +32,7 @@ export function AdsProvider({ children, adsService }: AdsProviderProps) {
     getAds();
   }, []);
 
-  const value = useMemo(() => ({ Ads, editAd }), [Ads]);
+  const value = useMemo(() => ({ ads, editAd }), [ads]);
 
   return <AdsContext.Provider value={value}>{children}</AdsContext.Provider>;
 }

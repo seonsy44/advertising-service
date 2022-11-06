@@ -1,60 +1,46 @@
 import styled, { css } from 'styled-components';
 import Button from '../../components/Button';
+import useAdCard from '../../hooks/useAdCard';
 import { flexBox } from '../../styles/mixin';
 import { Advertisement } from '../../types';
 import { adTypes } from '../../utils/conts';
-import { parseDate, parseKRW } from '../../utils/utils';
 
 type AdCardProps = {
   ad: Advertisement;
 };
 
-function AdCard({
-  ad: {
-    adType,
-    title,
-    status,
-    startDate,
-    endDate,
-    budget,
-    report: { roas, cost, convValue },
-  },
-}: AdCardProps) {
-  const contents = [
-    { data: '상태', content: status },
-    { data: '광고 생성일', content: `${parseDate(startDate, endDate)}` },
-    { data: '일 희망 예산', content: parseKRW(budget) },
-    { data: '광고 수익률', content: `${roas}%` },
-    { data: '매출', content: parseKRW(convValue) },
-    { data: '광고 비용', content: parseKRW(cost) },
-  ];
+function AdCard({ ad }: AdCardProps) {
+  const { contents, isEditMode, toggleEdit } = useAdCard(ad);
 
   return (
-    <Container>
+    <Container isEditMode={isEditMode}>
       <Title>
-        {adTypes[adType]}_{title}
+        {adTypes[ad.adType]}_{ad.title}
       </Title>
 
       <Contents>
         {contents.map(({ data, content }) => (
           <Content key={data}>
             <div>{data}</div>
-            {content}
+            {isEditMode && <Input value={content} />}
+            {!isEditMode && <div>{content}</div>}
           </Content>
         ))}
       </Contents>
 
-      <Button customStyle={ButtonStyle}>수정하기</Button>
+      <Button customStyle={ButtonStyle} onClick={toggleEdit}>
+        수정하기
+      </Button>
     </Container>
   );
 }
 
 export default AdCard;
 
-const Container = styled.div`
+const Container = styled.div<{ isEditMode: boolean }>`
   width: 100%;
   padding: 40px 20px 20px 20px;
-  border: 1px solid ${({ theme }) => theme.grey_100};
+  border: 1px solid ${({ theme, isEditMode }) => (isEditMode ? theme.primary : theme.grey_100)};
   border-radius: 10px;
 `;
 
@@ -72,7 +58,7 @@ const Contents = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 13px 0;
+  height: 40px;
   ${flexBox('row', 'flex-start')}
   font-size: 12px;
   font-weight: 700;
@@ -94,4 +80,15 @@ const ButtonStyle = css`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey_100};
   color: ${({ theme }) => theme.grey_800};
+`;
+
+const Input = styled.input`
+  width: 160px;
+  height: 100%;
+  font-size: 12px;
+  color: ${({ theme }) => theme.grey_300};
+
+  &:focus {
+    outline: none;
+  }
 `;
