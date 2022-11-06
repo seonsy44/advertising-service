@@ -6,6 +6,9 @@ import { flexBox } from '../../styles/mixin';
 import { pageTitles, pathnames } from '../../utils/conts';
 import DatePicker from '../DatePicker';
 
+const fromDate = new Date(2022, 1, 1);
+const toDate = new Date(2022, 3, 20);
+
 function PageTitle() {
   const { pathname } = useLocation();
   const [isOpenDatePicker, setIsOpenDatePicker] = useState(false);
@@ -17,11 +20,11 @@ function PageTitle() {
       {pageTitles[pathname]}
 
       {pathname === pathnames.dashboard && (
-        <Date onClick={handleClick}>
+        <DateRange onClick={handleClick}>
           2021년 11월 11일 ~ 2021년 11월 16일 <FaChevronDown />
-        </Date>
+        </DateRange>
       )}
-      {isOpenDatePicker && <DatePicker customStyle={DatePickerStyle} />}
+      {isOpenDatePicker && <DatePicker customStyle={DatePickerStyle} fromDate={fromDate} toDate={toDate} />}
     </Container>
   );
 }
@@ -38,7 +41,7 @@ const Container = styled.div`
   color: ${({ theme }) => theme.grey_800};
 `;
 
-const Date = styled.div`
+const DateRange = styled.div`
   ${flexBox()};
   font-size: 14px;
   font-weight: 500;

@@ -6,15 +6,25 @@ import useDatePicker from '../hooks/useDatePicker';
 
 type DatePickerProps = {
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
+  fromDate?: Date;
+  toDate?: Date;
 };
 
-function DatePicker({ customStyle }: DatePickerProps) {
-  const { pastMonth, range, setRange } = useDatePicker();
+function DatePicker({ customStyle, fromDate, toDate }: DatePickerProps) {
+  const { range, setRange } = useDatePicker();
 
   return (
     <Container customStyle={customStyle}>
       <style>{css}</style>
-      <DayPicker mode="range" fixedWeeks defaultMonth={pastMonth} selected={range} onSelect={setRange} />
+      <DayPicker
+        mode="range"
+        fixedWeeks
+        defaultMonth={toDate}
+        fromDate={fromDate}
+        toDate={toDate}
+        selected={range}
+        onSelect={setRange}
+      />
     </Container>
   );
 }
