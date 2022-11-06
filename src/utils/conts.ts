@@ -20,6 +20,20 @@ export const sidebarOptions = [
   { id: 2, content: '서비스 추가하기' },
 ];
 
+export const graphOptions = [
+  { id: 1, content: 'ROAS', option: 'roas' },
+  { id: 2, content: '광고비', option: 'cost' },
+  { id: 3, content: '노출수', option: 'imp' },
+  { id: 4, content: '클릭수', option: 'click' },
+  { id: 5, content: '전환수', option: 'conv' },
+  { id: 6, content: '매출', option: 'convValue' },
+];
+
+export const periodOptions = [
+  { id: 1, content: '주간' },
+  { id: 2, content: '일별' },
+];
+
 export const adManagementOptions = [
   { id: 1, content: '전체 광고' },
   { id: 2, content: '진행중' },

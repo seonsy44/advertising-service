@@ -3,6 +3,7 @@ import { addDays } from 'date-fns';
 import { TrendService } from '../service/TrendService';
 import { getFluctucation, getPeriod, parseString } from '../utils/utils';
 import { Trend } from '../types';
+import { graphOptions } from '../utils/conts';
 
 type TrendProviderProps = {
   children: React.ReactNode;
@@ -25,6 +26,34 @@ type State = {
       toDate: Date;
     }>
   >;
+  graphOption: (
+    | {
+        id: number;
+        option?: 'imp' | 'click' | 'cost' | 'conv' | 'convValue' | 'roas';
+        content: string;
+      }
+    | {
+        id?: undefined;
+        option?: undefined;
+        content?: undefined;
+      }
+  )[];
+  setGraphOption: React.Dispatch<
+    React.SetStateAction<
+      (
+        | {
+            id: number;
+            option?: string;
+            content: string;
+          }
+        | {
+            id?: undefined;
+            option?: undefined;
+            content?: undefined;
+          }
+      )[]
+    >
+  >;
 };
 
 const TrendContext = createContext<State | null>(null);
@@ -32,8 +61,9 @@ export const useTrend = () => useContext(TrendContext);
 
 export function TrendProvider({ children, trendService }: TrendProviderProps) {
   const [dateRange, setDateRange] = useState({ fromDate: new Date(2022, 3, 14), toDate: new Date(2022, 3, 20) });
-  const [trends, setTrends] = useState<Trend[]>([]);
   const [summaryData, setSummaryData] = useState<SummaryDataValues[]>([]);
+  const [trends, setTrends] = useState<Trend[]>([]);
+  const [graphOption, setGraphOption] = useState([graphOptions[0], {}]);
 
   const getTrendsAverage = (trends: Trend[]) => {
     const average = { imp: 0, click: 0, cost: 0, conv: 0, convValue: 0, roas: 0 };
@@ -73,7 +103,7 @@ export function TrendProvider({ children, trendService }: TrendProviderProps) {
         isIncreased: cur.cost >= prev.cost,
       },
       {
-        title: '노출 수',
+        title: '노출수',
         content: parseString(cur.imp) + ' 회',
         fluctuation: getFluctucation(prev.imp, cur.imp) + ' 회',
         isIncreased: cur.imp >= prev.imp,
@@ -85,7 +115,7 @@ export function TrendProvider({ children, trendService }: TrendProviderProps) {
         isIncreased: cur.click >= prev.click,
       },
       {
-        title: '전환 수',
+        title: '전환수',
         content: parseString(cur.conv) + ' 회',
         fluctuation: getFluctucation(prev.conv, cur.conv) + ' 회',
         isIncreased: cur.conv >= prev.conv,
@@ -118,7 +148,10 @@ export function TrendProvider({ children, trendService }: TrendProviderProps) {
     getTrend(dateRange.fromDate, dateRange.toDate);
   }, [dateRange]);
 
-  const value = useMemo(() => ({ trends, summaryData, getTrend, dateRange, setDateRange }), [trends, summaryData]);
+  const value = useMemo(
+    () => ({ trends, summaryData, getTrend, dateRange, setDateRange, graphOption, setGraphOption }),
+    [trends, summaryData, dateRange, graphOption]
+  );
 
   return <TrendContext.Provider value={value}>{children}</TrendContext.Provider>;
 }

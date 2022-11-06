@@ -1,6 +1,7 @@
 export type DropdownOption = {
   id: number;
   content: string;
+  option?: string;
 };
 
 export type Advertisement = {
