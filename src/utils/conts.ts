@@ -30,3 +30,6 @@ export const adTypes: { [key: string]: string } = {
   web: '웹광고',
   app: '앱광고',
 };
+
+export const MS_PER_DAY = 86400000;
+export const MS_PER_9HOURS = 32400000;
