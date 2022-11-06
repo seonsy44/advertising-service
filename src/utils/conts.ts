@@ -1,4 +1,5 @@
 import { HiOutlinePresentationChartLine as PT, HiChartBar as Chart } from 'react-icons/hi';
+import { DropdownOption } from '../types';
 
 export const pathnames: { [key: string]: string } = {
   dashboard: '/dashboard',
@@ -20,7 +21,7 @@ export const sidebarOptions = [
   { id: 2, content: '서비스 추가하기' },
 ];
 
-export const graphOptions = [
+export const graphOptions: DropdownOption[] = [
   { id: 1, content: 'ROAS', option: 'roas' },
   { id: 2, content: '광고비', option: 'cost' },
   { id: 3, content: '노출수', option: 'imp' },

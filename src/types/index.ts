@@ -1,8 +1,10 @@
-export type DropdownOption = {
-  id: number;
-  content: string;
-  option?: string;
-};
+export type DropdownOption =
+  | {
+      id: number;
+      content: string;
+      option?: string;
+    }
+  | { id: -1; content: '선택안함'; option: '' };
 
 export type Advertisement = {
   id: number;
@@ -31,4 +33,5 @@ export type Trend = {
   cpa?: number;
   roas: number;
   date?: string;
+  [key: string]: any;
 };

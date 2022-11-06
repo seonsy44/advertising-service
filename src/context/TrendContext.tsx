@@ -2,7 +2,7 @@ import React, { useContext, createContext, useEffect, useState, useMemo } from '
 import { addDays } from 'date-fns';
 import { TrendService } from '../service/TrendService';
 import { getFluctucation, getPeriod, parseString } from '../utils/utils';
-import { Trend } from '../types';
+import { DropdownOption, Trend } from '../types';
 import { graphOptions } from '../utils/conts';
 
 type TrendProviderProps = {
@@ -26,34 +26,8 @@ type State = {
       toDate: Date;
     }>
   >;
-  graphOption: (
-    | {
-        id: number;
-        option?: 'imp' | 'click' | 'cost' | 'conv' | 'convValue' | 'roas';
-        content: string;
-      }
-    | {
-        id?: undefined;
-        option?: undefined;
-        content?: undefined;
-      }
-  )[];
-  setGraphOption: React.Dispatch<
-    React.SetStateAction<
-      (
-        | {
-            id: number;
-            option?: string;
-            content: string;
-          }
-        | {
-            id?: undefined;
-            option?: undefined;
-            content?: undefined;
-          }
-      )[]
-    >
-  >;
+  graphOption: DropdownOption[];
+  setGraphOption: React.Dispatch<React.SetStateAction<DropdownOption[]>>;
 };
 
 const TrendContext = createContext<State | null>(null);
@@ -63,7 +37,7 @@ export function TrendProvider({ children, trendService }: TrendProviderProps) {
   const [dateRange, setDateRange] = useState({ fromDate: new Date(2022, 3, 14), toDate: new Date(2022, 3, 20) });
   const [summaryData, setSummaryData] = useState<SummaryDataValues[]>([]);
   const [trends, setTrends] = useState<Trend[]>([]);
-  const [graphOption, setGraphOption] = useState([graphOptions[0], {}]);
+  const [graphOption, setGraphOption] = useState([graphOptions[0], { id: -1, content: '선택안함', option: '' }]);
 
   const getTrendsAverage = (trends: Trend[]) => {
     const average = { imp: 0, click: 0, cost: 0, conv: 0, convValue: 0, roas: 0 };

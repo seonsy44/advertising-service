@@ -22,9 +22,9 @@ function useChart() {
       },
       {
         type: 'line',
-        label: option2?.content || '',
-        backgroundColor: option2?.content ? '#85DA47' : 'rgba(255, 255, 255, 0)',
-        borderColor: option2?.content ? '#85DA47' : 'rgba(255, 255, 255, 0)',
+        label: (option2?.id !== -1 && option2?.content) || '',
+        backgroundColor: option2?.id !== -1 && option2?.content ? '#85DA47' : 'rgba(255, 255, 255, 0)',
+        borderColor: option2?.id !== -1 && option2?.content ? '#85DA47' : 'rgba(255, 255, 255, 0)',
         data: trends?.trends.map((trend) => (option2?.option ? trend[option2?.option] : 0)),
       },
     ],

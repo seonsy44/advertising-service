@@ -8,6 +8,7 @@ import PerformanceSummary from './PerformaceSummary';
 import useChart from '../../hooks/useChart';
 import { useTrend } from '../../context/TrendContext';
 import { DropdownOption } from '../../types';
+import DropdownDouble from '../../components/DropdownDouble';
 
 function Dashboard() {
   const { data } = useChart();
@@ -27,10 +28,7 @@ function Dashboard() {
       <Container>
         <PerformanceSummary />
         <Dropdowns>
-          <div>
-            <DropdownSmall options={graphOptions} customStyle={DropdownStyle} onClick={handleOption1Click} />
-            <DropdownSmall options={graphOptions} onClick={handleOption2Click} />
-          </div>
+          <DropdownDouble options={graphOptions} onOpt1Click={handleOption1Click} onOpt2Click={handleOption2Click} />
 
           <DropdownSmall options={periodOptions} customStyle={DropdownStyle2} />
         </Dropdowns>
@@ -55,10 +53,6 @@ const SubTitle = styled.div`
 const Dropdowns = styled.div`
   margin-top: 42px;
   ${flexBox('row', 'space-between')}
-
-  >div {
-    ${flexBox()}
-  }
 `;
 
 const DropdownStyle = css`
