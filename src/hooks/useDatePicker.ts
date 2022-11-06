@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { addDays } from 'date-fns';
-
-const defaultSelected: DateRange = {
-  from: undefined,
-  to: undefined,
-  // to: addDays(pastMonth, 7),
-};
+import { useTrend } from '../context/TrendContext';
 
 function useDatePicker() {
-  const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+  const trends = useTrend();
+  const [range, setRange] = useState<DateRange | undefined>({
+    from: trends?.dateRange.fromDate,
+    to: trends?.dateRange.toDate,
+  });
 
   return { range, setRange };
 }

@@ -1,17 +1,35 @@
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FaChevronDown } from 'react-icons/fa';
 import { flexBox } from '../../styles/mixin';
 import { pageTitles, pathnames } from '../../utils/conts';
 import DatePicker from '../DatePicker';
+import { useTrend } from '../../context/TrendContext';
 
 const fromDate = new Date(2022, 1, 1);
 const toDate = new Date(2022, 3, 20);
 
 function PageTitle() {
   const { pathname } = useLocation();
+  const trends = useTrend();
   const [isOpenDatePicker, setIsOpenDatePicker] = useState(false);
+
+  const parseDate = (date: Date | undefined) => {
+    if (date) return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+
+  const handleDateSetClick = useCallback(
+    (from: Date | undefined, to: Date | undefined) => () => {
+      trends?.setDateRange({
+        fromDate: from || trends?.dateRange.fromDate,
+        toDate: to || trends?.dateRange.toDate,
+      });
+
+      setIsOpenDatePicker(false);
+    },
+    []
+  );
 
   const handleClick = () => setIsOpenDatePicker((cur) => !cur);
 
@@ -21,10 +39,14 @@ function PageTitle() {
 
       {pathname === pathnames.dashboard && (
         <DateRange onClick={handleClick}>
-          2021년 11월 11일 ~ 2021년 11월 16일 <FaChevronDown />
+          <>
+            {`${parseDate(trends?.dateRange.fromDate)} ~ ${parseDate(trends?.dateRange.toDate)}`} <FaChevronDown />
+          </>
         </DateRange>
       )}
-      {isOpenDatePicker && <DatePicker customStyle={DatePickerStyle} fromDate={fromDate} toDate={toDate} />}
+      {isOpenDatePicker && (
+        <DatePicker customStyle={DatePickerStyle} fromDate={fromDate} toDate={toDate} onSetClick={handleDateSetClick} />
+      )}
     </Container>
   );
 }
@@ -55,6 +77,6 @@ const DateRange = styled.div`
 
 const DatePickerStyle = css`
   position: absolute;
-  bottom: -320px;
+  bottom: -350px;
   right: 0;
 `;

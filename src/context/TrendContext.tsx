@@ -15,12 +15,23 @@ type State = {
   trends: Trend[];
   summaryData: SummaryDataValues[];
   getTrend: (fromDate: Date, toDate: Date) => void;
+  dateRange: {
+    fromDate: Date;
+    toDate: Date;
+  };
+  setDateRange: React.Dispatch<
+    React.SetStateAction<{
+      fromDate: Date;
+      toDate: Date;
+    }>
+  >;
 };
 
 const TrendContext = createContext<State | null>(null);
 export const useTrend = () => useContext(TrendContext);
 
 export function TrendProvider({ children, trendService }: TrendProviderProps) {
+  const [dateRange, setDateRange] = useState({ fromDate: new Date(2022, 3, 14), toDate: new Date(2022, 3, 20) });
   const [trends, setTrends] = useState<Trend[]>([]);
   const [summaryData, setSummaryData] = useState<SummaryDataValues[]>([]);
 
@@ -104,10 +115,10 @@ export function TrendProvider({ children, trendService }: TrendProviderProps) {
   };
 
   useEffect(() => {
-    getTrend(new Date(2022, 3, 14), new Date(2022, 3, 20));
-  }, []);
+    getTrend(dateRange.fromDate, dateRange.toDate);
+  }, [dateRange]);
 
-  const value = useMemo(() => ({ trends, summaryData, getTrend }), [trends, summaryData]);
+  const value = useMemo(() => ({ trends, summaryData, getTrend, dateRange, setDateRange }), [trends, summaryData]);
 
   return <TrendContext.Provider value={value}>{children}</TrendContext.Provider>;
 }

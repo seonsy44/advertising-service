@@ -3,14 +3,16 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { flexBox } from '../styles/mixin';
 import useDatePicker from '../hooks/useDatePicker';
+import Button from './Button';
 
 type DatePickerProps = {
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
   fromDate?: Date;
   toDate?: Date;
+  onSetClick: (from: Date | undefined, to: Date | undefined) => () => void;
 };
 
-function DatePicker({ customStyle, fromDate, toDate }: DatePickerProps) {
+function DatePicker({ customStyle, fromDate, toDate, onSetClick }: DatePickerProps) {
   const { range, setRange } = useDatePicker();
 
   return (
@@ -18,13 +20,13 @@ function DatePicker({ customStyle, fromDate, toDate }: DatePickerProps) {
       <style>{css}</style>
       <DayPicker
         mode="range"
-        fixedWeeks
         defaultMonth={toDate}
         fromDate={fromDate}
         toDate={toDate}
         selected={range}
         onSelect={setRange}
       />
+      <Button onClick={onSetClick(range?.from, range?.to)}>확인</Button>
     </Container>
   );
 }
@@ -32,12 +34,11 @@ function DatePicker({ customStyle, fromDate, toDate }: DatePickerProps) {
 export default DatePicker;
 
 const Container = styled.div<{ customStyle: FlattenInterpolation<ThemeProps<unknown>> | undefined }>`
-  width: 320px;
-  height: 340px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 8px ${({ theme }) => theme.grey_100};
   background-color: ${({ theme }) => theme.bg_w};
-  ${flexBox()}
+  ${flexBox('column', 'center', 'flex-end')}
   font-size: 15px;
   font-weight: 500;
   z-index: 10;
