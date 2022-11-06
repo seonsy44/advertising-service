@@ -1,44 +1,28 @@
 import { useLocation } from 'react-router-dom';
-import { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FaChevronDown } from 'react-icons/fa';
 import { flexBox } from '../../styles/mixin';
 import { pageTitles, pathnames } from '../../utils/conts';
 import DatePicker from '../DatePicker';
-import { useTrend } from '../../context/TrendContext';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const fromDate = new Date(2022, 1, 1);
 const toDate = new Date(2022, 3, 20);
 
 function PageTitle() {
   const { pathname } = useLocation();
-  const trends = useTrend();
-  const [isOpenDatePicker, setIsOpenDatePicker] = useState(false);
+  const { trends, isOpenDatePicker, handleDateSetClick, handleDateRangeClick } = usePageTitle();
 
   const parseDate = (date: Date | undefined) => {
     if (date) return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-
-  const handleDateSetClick = useCallback(
-    (from: Date | undefined, to: Date | undefined) => () => {
-      trends?.setDateRange({
-        fromDate: from || trends?.dateRange.fromDate,
-        toDate: to || trends?.dateRange.toDate,
-      });
-
-      setIsOpenDatePicker(false);
-    },
-    []
-  );
-
-  const handleClick = () => setIsOpenDatePicker((cur) => !cur);
 
   return (
     <Container>
       {pageTitles[pathname]}
 
       {pathname === pathnames.dashboard && (
-        <DateRange onClick={handleClick}>
+        <DateRange onClick={handleDateRangeClick}>
           <>
             {`${parseDate(trends?.dateRange.fromDate)} ~ ${parseDate(trends?.dateRange.toDate)}`} <FaChevronDown />
           </>
