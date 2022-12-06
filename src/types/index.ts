@@ -18,7 +18,18 @@ export type Advertisement = {
     cost: number;
     convValue: number;
     roas: number;
+    [key: string]: string | number;
   };
+  [key: string]:
+    | string
+    | number
+    | null
+    | {
+        cost: number;
+        convValue: number;
+        roas: number;
+        [key: string]: string | number;
+      };
 };
 
 export type Trend = {

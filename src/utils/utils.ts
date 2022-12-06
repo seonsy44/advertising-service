@@ -5,7 +5,10 @@ export const parseDate = (startDate: string, endDate: string | null = '') => {
   return `${startDate.slice(0, 10)} (${endDate.slice(0, 10)})`;
 };
 
-export const parseKRW = (cost: number) => `${Math.round(cost / 10000).toLocaleString()}만 원`;
+export const parseKRW = (cost: number) => {
+  if (cost < 100000) return `${Math.round(cost / 1000).toLocaleString()}천 원`;
+  return `${Math.round(cost / 10000).toLocaleString()}만 원`;
+};
 
 export const parseString = (num: number) => {
   if (num >= 10000) return `${Math.round(num / 10000).toLocaleString()}만`;

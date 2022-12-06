@@ -10,7 +10,7 @@ type AdCardProps = {
 };
 
 function AdCard({ ad }: AdCardProps) {
-  const { contents, isEditMode, toggleEdit } = useAdCard(ad);
+  const { contents, isEditMode, toggleEdit, getContents, handleContentsChange, handleEditClick } = useAdCard(ad);
 
   return (
     <Container isEditMode={isEditMode}>
@@ -19,18 +19,19 @@ function AdCard({ ad }: AdCardProps) {
       </Title>
 
       <Contents>
-        {contents.map(({ data, content }) => (
+        {contents.map(({ data, content, property }) => (
           <Content key={data}>
             <div>{data}</div>
-            {isEditMode && <Input value={content} />}
+            {isEditMode && <Input value={getContents(property)} onChange={handleContentsChange(property)} />}
             {!isEditMode && <div>{content}</div>}
           </Content>
         ))}
       </Contents>
 
       <Button customStyle={ButtonStyle} onClick={toggleEdit}>
-        수정하기
+        {isEditMode ? '취소하기' : '수정하기'}
       </Button>
+      {isEditMode && <Button onClick={handleEditClick}>확인</Button>}
     </Container>
   );
 }
@@ -77,6 +78,7 @@ const Content = styled.div`
 
 const ButtonStyle = css`
   margin-top: 20px;
+  margin-right: 10px;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey_100};
   color: ${({ theme }) => theme.grey_800};
