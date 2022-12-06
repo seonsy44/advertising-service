@@ -4,16 +4,25 @@ import Container from '../../components/Container';
 import DropdownSmall from '../../components/DropdownSmall';
 import { useAds } from '../../context/AdsContext';
 import { flexBox } from '../../styles/mixin';
+import { DropdownOption } from '../../types';
 import { adManagementOptions } from '../../utils/conts';
 import AdCard from './AdCard';
 
 function AdManagement() {
-  const { ads } = useAds() || {};
+  const { ads, filterAd, currentOption } = useAds() || {};
+
+  const handleOptionClick = (option: DropdownOption) => {
+    if (filterAd) filterAd(option);
+  };
 
   return (
     <Container>
       <TopContent>
-        <DropdownSmall options={adManagementOptions} />
+        <DropdownSmall
+          options={adManagementOptions}
+          onClick={handleOptionClick}
+          initialOption={currentOption || adManagementOptions[0]}
+        />
         <Button>광고 만들기</Button>
       </TopContent>
 

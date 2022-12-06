@@ -38,7 +38,7 @@ function Dashboard() {
             onOptRightClick={handleOption2Click}
           />
 
-          <DropdownSmall options={periodOptions} customStyle={DropdownStyle} />
+          <DropdownSmall options={periodOptions} customStyle={DropdownStyle} initialOption={periodOptions[0]} />
         </Dropdowns>
 
         <ChartContainer>

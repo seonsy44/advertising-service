@@ -36,9 +36,9 @@ export const periodOptions = [
 ];
 
 export const adManagementOptions = [
-  { id: 1, content: '전체 광고' },
-  { id: 2, content: '진행중' },
-  { id: 3, content: '중단됨' },
+  { id: 1, content: '전체 광고', option: 'all' },
+  { id: 2, content: '진행중', option: 'active' },
+  { id: 3, content: '중단됨', option: 'ended' },
 ];
 
 export const adTypes: { [key: string]: string } = {

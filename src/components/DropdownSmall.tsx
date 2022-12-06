@@ -8,10 +8,11 @@ type DropdownSmallProps = {
   options: DropdownOption[];
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
   onClick?: (option: DropdownOption) => void;
+  initialOption: DropdownOption;
 };
 
-function DropdownSmall({ options, customStyle, onClick }: DropdownSmallProps) {
-  const { isOpen, selected, handleToggle, handleSelect } = useDropdown(options[0]);
+function DropdownSmall({ options, customStyle, onClick, initialOption }: DropdownSmallProps) {
+  const { isOpen, selected, handleToggle, handleSelect } = useDropdown(initialOption);
 
   const handleClick = (option: DropdownOption) => () => {
     if (onClick) onClick(option);
