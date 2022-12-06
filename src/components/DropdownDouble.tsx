@@ -8,42 +8,49 @@ import { flexBox } from '../styles/mixin';
 type DropdownDoubleProps = {
   options: DropdownOption[];
   customStyle?: FlattenInterpolation<ThemeProps<unknown>>;
-  onOpt1Click?: (option: DropdownOption) => void;
-  onOpt2Click?: (option: DropdownOption) => void;
+  onOptLeftClick?: (option: DropdownOption) => void;
+  onOptRightClick?: (option: DropdownOption) => void;
 };
 
-function DropdownDouble({ options, customStyle, onOpt1Click, onOpt2Click }: DropdownDoubleProps) {
-  const { isOpt1Open, isOpt2Open, selected, handleOpt1Toggle, handleOpt2Toggle, handleOpt1Select, handleOpt2Select } =
-    useDropdownDouble([options[0], { id: -1, content: '선택안함', option: '' }]);
+function DropdownDouble({ options, customStyle, onOptLeftClick, onOptRightClick }: DropdownDoubleProps) {
+  const {
+    isOptLeftOpen,
+    isOptRightOpen,
+    selected,
+    handleOptLeftToggle,
+    handleOptRightToggle,
+    handleOptLeftSelect,
+    handleOptRightSelect,
+  } = useDropdownDouble();
 
-  const handleOpt1Click = (option: DropdownOption) => () => {
-    if (onOpt1Click) onOpt1Click(option);
+  const handleOptLeftClick = (option: DropdownOption) => () => {
+    if (onOptLeftClick) onOptLeftClick(option);
 
-    handleOpt1Select(option);
+    handleOptLeftSelect(option);
   };
 
-  const handleOpt2Click = (option: DropdownOption) => () => {
-    if (onOpt2Click) onOpt2Click(option);
+  const handleOptRightClick = (option: DropdownOption) => () => {
+    if (onOptRightClick) onOptRightClick(option);
 
-    handleOpt2Select(option);
+    handleOptRightSelect(option);
   };
 
   return (
     <DoubleContainer>
-      <Container onClick={handleOpt1Toggle} customStyle={customStyle}>
+      <Container onClick={handleOptLeftToggle} customStyle={customStyle}>
         <OptionSmall>
           {selected[0]?.content}
-          {isOpt1Open ? <FiChevronUp /> : <FiChevronDown />}
+          {isOptLeftOpen ? <FiChevronUp /> : <FiChevronDown />}
         </OptionSmall>
 
-        {isOpt1Open && (
+        {isOptLeftOpen && (
           <OptionsContainer>
             {options.map((option) => (
               <OptionSmall
                 key={option.id}
                 isSelected={option.id === selected[0]?.id || option.id === selected[1]?.id}
                 customStyle={OptionStyle}
-                onClick={handleOpt1Click(option)}>
+                onClick={handleOptLeftClick(option)}>
                 {option.content}
               </OptionSmall>
             ))}
@@ -51,19 +58,19 @@ function DropdownDouble({ options, customStyle, onOpt1Click, onOpt2Click }: Drop
         )}
       </Container>
 
-      <Container onClick={handleOpt2Toggle} customStyle={customStyle}>
+      <Container onClick={handleOptRightToggle} customStyle={customStyle}>
         <OptionSmall>
           {selected[1]?.content}
-          {isOpt2Open ? <FiChevronUp /> : <FiChevronDown />}
+          {isOptRightOpen ? <FiChevronUp /> : <FiChevronDown />}
         </OptionSmall>
 
-        {isOpt2Open && (
+        {isOptRightOpen && (
           <OptionsContainer>
             <OptionSmall
               key={-1}
               isSelected={selected[0]?.id === -1 || selected[1]?.id === -1}
               customStyle={OptionStyle}
-              onClick={handleOpt2Click({ id: -1, content: '선택안함', option: '' })}>
+              onClick={handleOptRightClick({ id: -1, content: '선택안함', option: '' })}>
               선택안함
             </OptionSmall>
             {options.map((option) => (
@@ -71,7 +78,7 @@ function DropdownDouble({ options, customStyle, onOpt1Click, onOpt2Click }: Drop
                 key={option.id}
                 isSelected={option.id === selected[0]?.id || option.id === selected[1]?.id}
                 customStyle={OptionStyle}
-                onClick={handleOpt2Click(option)}>
+                onClick={handleOptRightClick(option)}>
                 {option.content}
               </OptionSmall>
             ))}

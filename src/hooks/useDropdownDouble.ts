@@ -8,40 +8,48 @@ type SelectedOption =
   | { id?: number | undefined; option?: string | undefined; content?: string | undefined }
   | undefined;
 
-function useDropdownDouble(initOption: DropdownOption[]) {
+function useDropdownDouble() {
   const trends = useTrend();
-  const [isOpt1Open, setIsOpt1Open] = useState(false);
-  const [isOpt2Open, setIsOpt2Open] = useState(false);
+  const [isOptLeftOpen, setIsOptLeftOpen] = useState(false);
+  const [isOptRightOpen, setIsOptRightOpen] = useState(false);
   const [selected, setSelected] = useState<DropdownOption[] | SelectedOption[]>([
     trends?.graphOption[0],
     trends?.graphOption[1],
   ]);
 
-  const handleOpt1Toggle = useCallback(() => {
-    setIsOpt1Open((cur) => !cur);
+  const handleOptLeftToggle = useCallback(() => {
+    setIsOptLeftOpen((cur) => !cur);
   }, []);
 
-  const handleOpt2Toggle = useCallback(() => {
-    setIsOpt2Open((cur) => !cur);
+  const handleOptRightToggle = useCallback(() => {
+    setIsOptRightOpen((cur) => !cur);
   }, []);
 
-  const handleOpt1Select = (option: DropdownOption) => {
-    setIsOpt1Open(true);
+  const handleOptLeftSelect = (option: DropdownOption) => {
+    setIsOptLeftOpen(true);
 
     if (option.id === selected[1]?.id) return;
 
-    setSelected(([opt1, opt2]) => [option, opt2]);
+    setSelected(([optLeft, optRight]) => [option, optRight]);
   };
 
-  const handleOpt2Select = (option: DropdownOption) => {
-    setIsOpt2Open(true);
+  const handleOptRightSelect = (option: DropdownOption) => {
+    setIsOptRightOpen(true);
 
     if (option.id === selected[0]?.id) return;
 
-    setSelected(([opt1, opt2]) => [opt1, option]);
+    setSelected(([optLeft, optRight]) => [optLeft, option]);
   };
 
-  return { isOpt1Open, isOpt2Open, selected, handleOpt1Toggle, handleOpt2Toggle, handleOpt1Select, handleOpt2Select };
+  return {
+    isOptLeftOpen,
+    isOptRightOpen,
+    selected,
+    handleOptLeftToggle,
+    handleOptRightToggle,
+    handleOptLeftSelect,
+    handleOptRightSelect,
+  };
 }
 
 export default useDropdownDouble;

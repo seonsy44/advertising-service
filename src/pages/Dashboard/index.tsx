@@ -15,11 +15,15 @@ function Dashboard() {
   const trends = useTrend();
 
   const handleOption1Click = (option: DropdownOption) => {
-    trends?.setGraphOption(([opt1, opt2]) => (option.id === opt2.id ? [opt1, opt2] : [option, opt2]));
+    trends?.setGraphOption(([optLeft, optRight]) =>
+      option.id === optRight.id ? [optLeft, optRight] : [option, optRight]
+    );
   };
 
   const handleOption2Click = (option: DropdownOption) => {
-    trends?.setGraphOption(([opt1, opt2]) => (option.id === opt1.id ? [opt1, opt2] : [opt1, option]));
+    trends?.setGraphOption(([optLeft, optRight]) =>
+      option.id === optLeft.id ? [optLeft, optRight] : [optLeft, option]
+    );
   };
 
   return (
@@ -28,9 +32,13 @@ function Dashboard() {
       <Container>
         <PerformanceSummary />
         <Dropdowns>
-          <DropdownDouble options={graphOptions} onOpt1Click={handleOption1Click} onOpt2Click={handleOption2Click} />
+          <DropdownDouble
+            options={graphOptions}
+            onOptLeftClick={handleOption1Click}
+            onOptRightClick={handleOption2Click}
+          />
 
-          <DropdownSmall options={periodOptions} customStyle={DropdownStyle2} />
+          <DropdownSmall options={periodOptions} customStyle={DropdownStyle} />
         </Dropdowns>
 
         <ChartContainer>
@@ -56,10 +64,6 @@ const Dropdowns = styled.div`
 `;
 
 const DropdownStyle = css`
-  margin-right: 10px;
-`;
-
-const DropdownStyle2 = css`
   border: none;
 `;
 
